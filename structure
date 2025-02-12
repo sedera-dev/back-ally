@@ -1,0 +1,30 @@
+fastapi_project/
+│── app/
+│   ├── api/                 # Dossiers des routes
+│   │   ├── v1/              # Versionnage de l'API
+│   │   │   ├── endpoints/
+│   │   │   │   ├── auth.py  # Authentification
+│   │   │   │   ├── users.py # Gestion des utilisateurs
+│   │   │   │   ├── items.py # Autres fonctionnalités
+│   │   │   ├── __init__.py
+│   ├── core/                # Fichiers de configuration
+│   │   ├── config.py        # Configuration globale (variables d'environnement)
+│   │   ├── security.py      # Gestion de la sécurité et JWT
+│   │   ├── database.py      # Connexion à la base de données
+│   ├── models/              # Modèles SQLAlchemy (Base de données)
+│   │   ├── user.py          # Modèle User
+│   │   ├── base.py          # Classe de base pour SQLAlchemy
+│   ├── schemas/             # Schémas Pydantic (Validation des données)
+│   │   ├── user.py
+│   ├── services/            # Logique métier (services, envoi d'email, etc.)
+│   │   ├── user_service.py
+│   ├── main.py              # Point d’entrée principal
+│   ├── dependencies.py      # Dépendances globales (ex: auth, db)
+│── tests/                   # Tests unitaires et d'intégration
+│   ├── test_auth.py
+│   ├── test_users.py
+│── .env                     # Variables d'environnement (ex: DATABASE_URL, SECRET_KEY)
+│── requirements.txt         # Liste des dépendances (pip freeze > requirements.txt)
+│── docker-compose.yml       # Fichier de configuration Docker
+│── Dockerfile               # Dockerfile pour déploiement
+│── README.md                # Documentation du projet
