@@ -9,19 +9,19 @@ from fastapi import Depends, HTTPException, status
 # Configuration
 SECRET_KEY = settings.SECRET_KEY 
 ALGORITHM = settings.ALGORITHM
-ACCESS_TOKEN_EXPIRE_MINUTES = settings.ACCESS_TOKEN_EXPIRE_MINUTES
+
 
 # Configuration pour le hachage des mots de passe
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # Base de données simulée
 fake_users_db = {
-    "sedera714": {
-        "username": "sedera714",
-        "email": "sederafanomezana@gmail.com",
-        "full_name": "sedera fanomezana",
+    settings.USER_NAME: {
+        "username": settings.USER_NAME,
+        "email": settings.USER_EMAIL,
+        "full_name": settings.USER_FULLNAME,
         "disabled": False,
-        "hashed_password": pwd_context.hash("secret"),
+        "hashed_password": pwd_context.hash(settings.USER_PASSWORD),
     }
 }
 
