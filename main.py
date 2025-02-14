@@ -3,10 +3,10 @@ import uvicorn
 from fastapi import FastAPI
 from app.modules.auth.api.v1.endpoints.router import router as auth_router
 from app.modules.dify.api.v1.endpoints.router import router as dify_router
-
+from app.core.config import settings
+import os
 
 version = "v1"
-
 
 app = FastAPI(
     title="Ally",

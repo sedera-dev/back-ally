@@ -1,9 +1,8 @@
 
 from os import getenv
-from dotenv import load_dotenv
+import dotenv
 
-load_dotenv()
-
+dotenv.load_dotenv(override=True)
 
 class Settings:
     PROJECT_NAME: str = getenv('PROJECT_NAME')
