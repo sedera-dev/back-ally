@@ -17,7 +17,7 @@ async def get_conversation_history_messages(
     username: str = Depends(get_current_user)
     ):
     try:
-        # En-têtes pour l'API Dify
+        # Headers for the Dify API
         headers = {
             "Authorization": f"Bearer {settings.DIFY_API_KEY}",
             "Content-Type": "application/json",
@@ -42,14 +42,14 @@ async def get_conversation_history_messages(
         async with httpx.AsyncClient() as client:
             try:
                 response = await client.get(f"{settings.DIFY_API_URL}/messages{query}", headers=headers)
-                response.raise_for_status()  # Lève une exception si le statut n'est pas 2xx
+                response.raise_for_status()  # Throw an exception if the status is not 2xx
             except httpx.HTTPStatusError as e:
                 raise HTTPException(
                     status_code=e.response.status_code,
                     detail=f"Erreur lors de la communication avec l'API Dify: {e.response.text}",
                 )
 
-            # Renvoyer la réponse de l'API Dify
+            # Return response from Dify API
         return response.json()
         
        

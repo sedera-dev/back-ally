@@ -8,17 +8,17 @@ router = APIRouter()
 @router.post("/")
 async def file_upload(
     file: UploadFile, 
-    user: str = Form(...),  # Passer `user` comme un paramètre de formulaire
-    type: str = Form(...),  # Passer `type` comme un paramètre de formulaire
+    user: str = Form(...),  # Passing `user` as a form parameter
+    type: str = Form(...),  # Passing `type` as a form parameter
     username: str = Depends(get_current_user)
 ):
     try:
-        # En-têtes pour l'API Dify
+        # Headers for the Dify API
         headers = {
             "Authorization": f"Bearer {settings.DIFY_API_KEY}",
         }
         
-        # Payload pour l'API Dify
+        # Payload for Dify API
         files = {
             "file": (file.filename, file.file, file.content_type),
             "type": (None, type),
@@ -27,16 +27,16 @@ async def file_upload(
 
         async with httpx.AsyncClient() as client:
             try:
-                # Envoi du fichier avec httpx dans le corps multipart/form-data
+                # Sending the file with httpx in the multipart/form-data body
                 response = await client.post(f"{settings.DIFY_API_URL}/files/upload", files=files, headers=headers)
-                response.raise_for_status()  # Lève une exception si le statut n'est pas 2xx
+                response.raise_for_status()  # Throw an exception if the status is not 2xx
             except httpx.HTTPStatusError as e:
                 raise HTTPException(
                     status_code=e.response.status_code,
                     detail=f"Erreur lors de la communication avec l'API Dify: {e.response.text}",
                 )
 
-        # Renvoyer la réponse de l'API Dify
+        # Return response from Dify API
         return response.json()
        
     except Exception as e:

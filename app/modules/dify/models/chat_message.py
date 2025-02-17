@@ -34,7 +34,3 @@ class ChatMessage(BaseModel):
     files: Optional[List[File]] = None
     auto_generate_name: Optional[bool] = None
 
-
-
-class DifyResponse(BaseModel):
-    response: str

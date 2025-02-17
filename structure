@@ -1,30 +1,59 @@
-fastapi_project/
-│── app/
-│   ├── api/                 # Dossiers des routes
-│   │   ├── v1/              # Versionnage de l'API
-│   │   │   ├── endpoints/
-│   │   │   │   ├── auth.py  # Authentification
-│   │   │   │   ├── users.py # Gestion des utilisateurs
-│   │   │   │   ├── items.py # Autres fonctionnalités
-│   │   │   ├── __init__.py
-│   ├── core/                # Fichiers de configuration
-│   │   ├── config.py        # Configuration globale (variables d'environnement)
-│   │   ├── security.py      # Gestion de la sécurité et JWT
-│   │   ├── database.py      # Connexion à la base de données
-│   ├── models/              # Modèles SQLAlchemy (Base de données)
-│   │   ├── user.py          # Modèle User
-│   │   ├── base.py          # Classe de base pour SQLAlchemy
-│   ├── schemas/             # Schémas Pydantic (Validation des données)
-│   │   ├── user.py
-│   ├── services/            # Logique métier (services, envoi d'email, etc.)
-│   │   ├── user_service.py
-│   ├── main.py              # Point d’entrée principal
-│   ├── dependencies.py      # Dépendances globales (ex: auth, db)
-│── tests/                   # Tests unitaires et d'intégration
-│   ├── test_auth.py
-│   ├── test_users.py
-│── .env                     # Variables d'environnement (ex: DATABASE_URL, SECRET_KEY)
-│── requirements.txt         # Liste des dépendances (pip freeze > requirements.txt)
-│── docker-compose.yml       # Fichier de configuration Docker
-│── Dockerfile               # Dockerfile pour déploiement
-│── README.md                # Documentation du projet
+my_fastapi_project/
+│
+├── app/                          # Main application folder
+│   ├── __init__.py               # Package initialization file
+│   ├── main.py                   # Application entry point
+│   ├── core/                     # Folder for common configurations and utilities
+│   │   ├── __init__.py
+│   │   ├── config.py             # App setup
+│   │   └── security.py           # Security logic (authentication, etc.)
+│   ├── modules/                  # Folder for modules
+│   │   ├── module1/              # Module 1
+│   │   │   ├── __init__.py       # Module initialization file
+│   │   │   ├── api/              # Folder for module API routes
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── v1/           # Module API version 1
+│   │   │   │   │   ├── __init__.py
+│   │   │   │   │   ├── endpoints/ # Folder for module endpoints
+│   │   │   │   │   │   ├── __init__.py
+│   │   │   │   │   │   └── example.py
+│   │   │   │   │   └── routers.py # File to group the module routers
+│   │   │   ├── models/           # Folder for module data models
+│   │   │   │   ├── __init__.py
+│   │   │   │   └── example.py
+│   │   │   ├── schemas/          # Folder for module Pydantic schematics
+│   │   │   │   ├── __init__.py
+│   │   │   │   └── example.py
+│   │   │   ├── services/         # Folder for module business logic
+│   │   │   │   ├── __init__.py
+│   │   │   │   └── example_service.py
+│   │   │   ├── repositories/     # Folder for module repositories
+│   │   │   │   ├── __init__.py
+│   │   │   │   └── example_repository.py
+│   │   │   └── utils/            # Folder for module-specific utilities
+│   │   │       ├── __init__.py
+│   │   │       └── helpers.py
+│   │   ├── module2/              # Module 2 (structure similar to module1)
+│   │   └── module3/              # Module 3 (structure similar to module1)
+│   ├── db/                       # Folder for database management
+│   │   ├── __init__.py
+│   │   ├── session.py            # Database session
+│   │   └── repositories/         # Folder for common repositories
+│   │       ├── __init__.py
+│   │       └── base_repository.py
+│   └── utils/                    # File for common utilities
+│       ├── __init__.py
+│       └── helpers.py
+│
+├── tests/                        # File for tests
+│   ├── __init__.py
+│   ├── test_module1/             # Tests for module1
+│   │   ├── __init__.py
+│   │   └── test_example.py
+│   ├── test_module2/             # Tests for module2
+│   └── test_module3/             # Tests for module3
+│
+├── requirements.txt              # Project dependencies
+├── Dockerfile                    # Docker file to containerize the application
+├── docker-compose.yml            # docker-compose file for services
+└── README.md                     # Project documentation

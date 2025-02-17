@@ -14,7 +14,7 @@ async def send_chat_message(
     username: str = Depends(get_current_user)
     ):
     try:
-        # En-têtes pour l'API Dify
+        # Headers for the Dify API
         headers = {
             "Authorization": f"Bearer {settings.DIFY_API_KEY}",
             "Content-Type": "application/json",
@@ -37,7 +37,7 @@ async def send_chat_message(
         
         
         if payload["response_mode"] == "blocking":
-            # httpx.Client() est synchrone, donc il attend que l'API Dify renvoie une réponse complète avant de continuer
+            # httpx.Client() is synchronous, so it waits for the Dify API to return a complete response before continuing
             timeout = httpx.Timeout(60.0, connect=30.0)
             with httpx.Client(timeout=timeout) as client:
                 response = client.post(f"{settings.DIFY_API_URL}/chat-messages", json=payload, headers=headers)
@@ -46,7 +46,7 @@ async def send_chat_message(
                 return response.json()  
 
         elif payload["response_mode"] == "streaming":
-            # httpx.AsyncClient() est asynchrone, ce qui peut ne pas être compatible avec le mode blocking, car il ne s'arrête pas d'attendre une réponse
+            # httpx.AsyncClient() is asynchronous, which may not be compatible with blocking mode, because it does not stop waiting for a response
             async with  httpx.AsyncClient() as client:
                 response = await client.post(f"{settings.DIFY_API_URL}/chat-messages", json=payload, headers=headers)
                 
@@ -54,13 +54,13 @@ async def send_chat_message(
                     raise HTTPException(status_code=response.status_code, detail=response.text)
                 
                 responses = []
-                async for chunk in response.aiter_text():  # Lire chaque morceau de texte en streaming
+                async for chunk in response.aiter_text():  # Read every piece of text in streaming
                     try:
-                        # Essayer de convertir chaque morceau de texte en JSON
+                        # Trying to convert each piece of text to JSON
                         json_chunk = json.loads(chunk)
                         responses.append(json_chunk)
                     except json.JSONDecodeError:
-                        # Si la conversion échoue, on ajoute le texte brut
+                        # If the conversion fails, add the raw text
                         responses.append({"message": "Texte brut", "content": chunk})
                         
             return {"responses": responses}

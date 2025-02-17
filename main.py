@@ -15,7 +15,7 @@ app = FastAPI(
 )
     
 app.include_router(auth_router, prefix=f"/api/{version}/auth", tags=["Authentification"])
-app.include_router(dify_router, prefix=f"/api/{version}/dify", tags=["Dify API"])
+app.include_router(dify_router, prefix=f"/api/{version}/chat", tags=["Chat API"])
 
 
 if __name__ == '__main__':
